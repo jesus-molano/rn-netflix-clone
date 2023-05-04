@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from 'react'
 import {
   Text,
   View,
@@ -10,30 +10,20 @@ import {
   Pressable,
   TouchableWithoutFeedback
 } from 'react-native'
-import { handleValidateForm } from '../helpers/handleValidateForm'
+import {handleValidateForm} from '../helpers/handleValidateForm'
 import tw from 'twrnc'
 import FormTextInput from '../components/FormTextInput'
+import LoginButton from "../components/LoginButton";
 
-function SignUpScreen ({ navigation }) {
+function SignUpScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [lastError, setLastError] = useState('')
   const [errorEmail, setErrorEmail] = useState('')
   const [errorPassword, serErrorPassword] = useState('')
-  const [lastError, setLastError] = useState('')
-
-  useEffect(() => {
-    setLastError(errorEmail)
-    console.log(errorEmail);
-  }, [errorEmail])
-
-  useEffect(() => {
-    setLastError(errorPassword)
-    console.log(errorPassword);
-  }, [errorPassword])
-  
 
   const handleSubmit = () => {
-    if(!email || !password) return setError('All fields are required')
+    if (!email || !password) return setLastError('All fields are required')
     setLastError(null)
     navigation.navigate('SignIn')
   }
@@ -47,18 +37,15 @@ function SignUpScreen ({ navigation }) {
           <View style={tw`flex gap-4`}>
             {lastError && <Text style={tw`text-white text-lg`}>{lastError}</Text>}
             <FormTextInput type='email' value={email} setValue={setEmail} setError={setErrorEmail}/>
-            <FormTextInput type='password' value={password} setValue={setPassword} setError={serErrorPassword} />
-            <TouchableOpacity
-              style={tw.style(
-                `bg-transparent py-4 rounded-md border-2 border-gray-400 mt-4`,
-                (errorEmail || errorPassword) && 'opacity-50'
-                )}
-              onPress={handleSubmit}
-              disabled={(!errorEmail && !errorPassword) ? false : true}
-
-            >
-              <Text style={tw`text-white text-center text-lg`}>Register</Text>
-            </TouchableOpacity>
+            <FormTextInput type='password' value={password} setValue={setPassword} setError={serErrorPassword}/>
+            <LoginButton
+              setLastError={setLastError}
+              email={email}
+              password={password}
+              errorEmail={errorEmail}
+              errorPassword={errorPassword}
+              handleSubmit={handleSubmit}
+            />
           </View>
           <View
             style={tw`flex flex-row justify-center items-center gap-4 mt-8`}

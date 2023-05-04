@@ -1,6 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import { SignInScreen, SignUpScreen, RecoveryScreen } from '../screens'
 import NetflixLogo from '../assets/netflix-logo.svg'
+import SearchScreen from "../screens/SearchScreen";
+import React from "react";
 
 const AuthNavigator = () => {
   const Stack = createStackNavigator()
@@ -43,6 +45,7 @@ const AuthNavigator = () => {
           headerBackTitleVisible: false
         }}
       />
+      <Stack.Screen name={'SearchScreen'} component={SearchScreen} options={{title: 'Search'}}/>
     </Stack.Navigator>
   )
 }
