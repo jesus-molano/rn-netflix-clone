@@ -12,10 +12,10 @@ const HomeScreen = () => {
   const [heroElement] = useSetHeroElement(trendingData?.results, selectedElement);
   return (
     <SafeAreaView style={tw`flex-1 bg-black`}>
-      {heroElement && <Hero element={heroElement} />}
-        <View style={tw`flex gap-4`}>
-          <Text style={tw`text-white`}>Hello</Text>
-        </View>
+      {heroElement && <Hero element={heroElement}/>}
+      <View style={tw`flex gap-4`}>
+        <Text style={tw`text-white`}>Hello</Text>
+      </View>
 
     </SafeAreaView>
   )
