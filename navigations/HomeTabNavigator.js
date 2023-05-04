@@ -17,7 +17,6 @@ import {
 } from "react-native-heroicons/solid";
 import tw from 'twrnc'
 import { useNavigation } from '@react-navigation/native';
-import SearchScreen from "../screens/SearchScreen";
 import NetflixLogoMini from '../assets/netflix-logo-mini.svg'
 
 

@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import { View} from "react-native";
+import {View} from "react-native";
 import {NavigationContainer} from '@react-navigation/native'
 import AuthNavigator from './navigations/AuthNavigator'
 import HomeTabNavigator from './navigations/HomeTabNavigator'
