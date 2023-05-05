@@ -15,7 +15,7 @@ const Hero = ({element}) => {
       : `tv/${element.id}`
   );
   return (
-    <View style={tw`h-full bg-red-400 max-h-[520px] relative flex justify-end gap-4`}>
+    <View style={tw`h-115 max-h-[520px] relative flex justify-end gap-4`}>
       <Text style={tw`text-white z-30 text-3xl text-center`}>
         {element.title}
       </Text>
