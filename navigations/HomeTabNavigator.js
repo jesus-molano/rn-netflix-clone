@@ -19,8 +19,6 @@ import tw from 'twrnc'
 import { useNavigation } from '@react-navigation/native';
 import NetflixLogoMini from '../assets/netflix-logo-mini.svg'
 
-
-
 const HomeTabNavigator = () => {
   const Tab = createBottomTabNavigator()
   const navigation = useNavigation()

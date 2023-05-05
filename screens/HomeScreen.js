@@ -4,6 +4,7 @@ import tw from 'twrnc'
 import {useSetHeroElement} from "../hooks/useSetHeroElement";
 import {useGetElements} from "../hooks/useGetElements";
 import Hero from "../components/Hero";
+import ListOfElements from "../components/ListOfElements";
 
 const HomeScreen = () => {
 
@@ -13,9 +14,7 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={tw`flex-1 bg-black`}>
       {heroElement && <Hero element={heroElement}/>}
-      <View style={tw`flex gap-4`}>
-        <Text style={tw`text-white`}>Hello</Text>
-      </View>
+      <ListOfElements elements={trendingData} />
 
     </SafeAreaView>
   )
