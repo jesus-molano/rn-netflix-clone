@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import tw from "twrnc";
 import {Text, TouchableOpacity} from "react-native";
 
-function LoginButton({setLastError, email, password, errorEmail, errorPassword, handleSubmit}) {
+function LoginButton({setLastError, email, password, errorEmail, errorPassword, handleSubmit, text}) {
 
   useEffect(() => {
     setLastError(errorEmail)
@@ -21,7 +21,7 @@ function LoginButton({setLastError, email, password, errorEmail, errorPassword, 
       onPress={() => handleSubmit()}
       disabled={!!((errorEmail || errorPassword) || (email === '' || password === ''))}
     >
-      <Text style={tw`text-white text-center text-lg`}>Register</Text>
+      <Text style={tw`text-white text-center text-lg`}>{text}</Text>
     </TouchableOpacity>
   );
 }

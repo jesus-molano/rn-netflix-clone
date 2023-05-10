@@ -14,10 +14,16 @@ const Hero = ({element}) => {
       ? `movie/${element.id}`
       : `tv/${element.id}`
   );
+
+  const genres = details?.genres.map(genre => genre.name).join(' 🔹 ')
+
   return (
     <View style={tw`h-115 max-h-[520px] relative flex justify-end gap-4`}>
       <Text style={tw`text-white z-30 text-3xl text-center`}>
-        {element.title}
+        {element.title || element.name}
+      </Text>
+      <Text style={tw`text-white z-30 text-xs text-center`}>
+        {genres}
       </Text>
       <LinearGradient
         colors={['black', 'transparent', 'black']}

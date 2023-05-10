@@ -3,7 +3,7 @@ import {FlatList, Pressable, Text, View} from "react-native";
 import tw from 'twrnc'
 import {ElementCard} from "./ElementCard";
 
-function ListOfElements({elements, title = '', poster = true }) {
+function ListOfElements({elements, title = '', poster = true , setSelectedElement = null}) {
   return (
     <View style={tw`flex gap-2`}>
       <Text style={tw`text-white text-xl mt-4`}>
@@ -13,8 +13,8 @@ function ListOfElements({elements, title = '', poster = true }) {
         {
           <FlatList
             data={elements}
-            renderItem={({item}) => (
-              <ElementCard item={item} poster={poster}/>
+            renderItem={({item, index}) => (
+              <ElementCard item={item} poster={poster} setSelectedElement={setSelectedElement} index={index}/>
             )}
             keyExtractor={item => item.id}
             horizontal={true}

@@ -10,10 +10,11 @@ import {
   Pressable,
   TouchableWithoutFeedback
 } from 'react-native'
-import { handleValidateForm } from '../helpers/handleValidateForm'
 import tw from 'twrnc'
 import FormTextInput from '../components/FormTextInput'
 import LoginButton from "../components/LoginButton";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from '../firebase'
 
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
@@ -25,7 +26,16 @@ const SignInScreen = ({ navigation }) => {
   const handleSubmit = () => {
     if (!email || !password) return setLastError('All fields are required')
     setLastError(null)
-    navigation.navigate('SignIn')
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        if (user) {
+          navigation.navigate('HomeTabs')
+        }
+      })
+      .catch((error) => {
+        setLastError(error.message)
+      });
   }
 
   return (
@@ -38,7 +48,7 @@ const SignInScreen = ({ navigation }) => {
             {lastError && <Text style={tw`text-white text-lg`}>{lastError}</Text>}
             <FormTextInput type='email' value={email} setValue={setEmail} setError={setErrorEmail}/>
             <FormTextInput type='password' value={password} setValue={setPassword} setError={serErrorPassword} />
-            <LoginButton setLastError={setLastError} errorEmail={errorEmail} errorPassword={errorPassword} email={email} password={password} handleSubmit={handleSubmit} />
+            <LoginButton setLastError={setLastError} errorEmail={errorEmail} errorPassword={errorPassword} email={email} password={password} handleSubmit={handleSubmit} text={'Login'} />
           </View>
           <Pressable
             style={tw`flex justify-center items-center mt-10`}

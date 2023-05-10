@@ -18,6 +18,8 @@ import {
 import tw from 'twrnc'
 import { useNavigation } from '@react-navigation/native';
 import NetflixLogoMini from '../assets/netflix-logo-mini.svg'
+import { signOut } from "../firebase/auth";
+import { BlurView } from "expo-blur";
 
 const HomeTabNavigator = () => {
   const Tab = createBottomTabNavigator()
@@ -30,7 +32,9 @@ const HomeTabNavigator = () => {
         <Pressable onPress={() => navigation.navigate('Search')}>
           <MagnifyingGlassIcon color={'white'} height={25} width={25}/>
         </Pressable>
-        <UserCircleIcon color={'white'} width={25} height={25}/>
+        <Pressable onPress={() => signOut()}>
+          <UserCircleIcon color={'white'} width={25} height={25}/>
+        </Pressable>
       </View>
     )
   }
@@ -65,6 +69,9 @@ const HomeTabNavigator = () => {
             ...headerStyleOptions,
             headerLeft: () => <NetflixLogoMini height={40} width={30}/>,
             headerTransparent: true,
+            headerBackground: () => (
+              <BlurView tint={'dark'} intensity={100} style={tw`absolute inset-0`}/>
+            ),
             headerTitle: '',
           }}
         />

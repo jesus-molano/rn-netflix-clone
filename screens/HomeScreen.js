@@ -29,7 +29,7 @@ const HomeScreen = () => {
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <SafeAreaView style={tw`flex flex-1 gap-4`}>
             {heroElement && <Hero element={heroElement}/>}
-            {trendingData && <ListOfElements elements={trending} title={'Trending'}/>}
+            {trendingData && <ListOfElements elements={trending} title={'Trending'} setSelectedElement={setSelectedElement}/>}
             {upComingData && <ListOfElements elements={upComing} title={'Popular Movies'} />}
           </SafeAreaView>
         </TouchableWithoutFeedback>

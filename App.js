@@ -1,4 +1,3 @@
-import {useState} from 'react'
 import {View} from "react-native";
 import {NavigationContainer} from '@react-navigation/native'
 import AuthNavigator from './navigations/AuthNavigator'
@@ -6,14 +5,15 @@ import HomeTabNavigator from './navigations/HomeTabNavigator'
 import {createStackNavigator} from "@react-navigation/stack";
 import SearchScreen from "./screens/SearchScreen";
 import {UserCircleIcon} from "react-native-heroicons/outline";
+import useAuthentication from './hooks/useAuthentication'
 import tw from "twrnc";
 import 'react-native-gesture-handler'
 
-// import { supabase } from './lib/supabase'
-
 export default function App() {
-  const [user, setUser] = useState(true)
   const RootStack = createStackNavigator()
+
+  const {user} = useAuthentication()
+
   return (
     <NavigationContainer>
       <RootStack.Navigator>

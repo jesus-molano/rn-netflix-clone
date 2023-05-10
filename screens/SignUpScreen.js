@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import { useState } from 'react'
 import {
   Text,
   View,
@@ -6,16 +6,18 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
-  TouchableOpacity,
   Pressable,
   TouchableWithoutFeedback
 } from 'react-native'
-import {handleValidateForm} from '../helpers/handleValidateForm'
 import tw from 'twrnc'
 import FormTextInput from '../components/FormTextInput'
-import LoginButton from "../components/LoginButton";
+import LoginButton from '../components/LoginButton'
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import {auth} from '../firebase'
 
-function SignUpScreen({navigation}) {
+
+
+function SignUpScreen ({ navigation }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [lastError, setLastError] = useState('')
@@ -25,7 +27,16 @@ function SignUpScreen({navigation}) {
   const handleSubmit = () => {
     if (!email || !password) return setLastError('All fields are required')
     setLastError(null)
-    navigation.navigate('SignIn')
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        const user = userCredential.user
+        if (user) {
+          navigation.navigate('HomeTabs')
+        }
+      })
+      .catch(error => {
+        setLastError(error.message)
+      })
   }
 
   return (
@@ -35,9 +46,21 @@ function SignUpScreen({navigation}) {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <View style={tw`flex gap-4`}>
-            {lastError && <Text style={tw`text-white text-lg`}>{lastError}</Text>}
-            <FormTextInput type='email' value={email} setValue={setEmail} setError={setErrorEmail}/>
-            <FormTextInput type='password' value={password} setValue={setPassword} setError={serErrorPassword}/>
+            {lastError && (
+              <Text style={tw`text-white text-lg`}>{lastError}</Text>
+            )}
+            <FormTextInput
+              type='email'
+              value={email}
+              setValue={setEmail}
+              setError={setErrorEmail}
+            />
+            <FormTextInput
+              type='password'
+              value={password}
+              setValue={setPassword}
+              setError={serErrorPassword}
+            />
             <LoginButton
               setLastError={setLastError}
               email={email}
@@ -45,6 +68,7 @@ function SignUpScreen({navigation}) {
               errorEmail={errorEmail}
               errorPassword={errorPassword}
               handleSubmit={handleSubmit}
+              text={'Register'}
             />
           </View>
           <View
