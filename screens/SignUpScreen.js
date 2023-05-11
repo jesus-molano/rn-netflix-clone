@@ -12,10 +12,7 @@ import {
 import tw from 'twrnc'
 import FormTextInput from '../components/FormTextInput'
 import LoginButton from '../components/LoginButton'
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import {auth} from '../firebase'
-
-
+import { signUpWithEmailAndPassword } from '../firebase/auth'
 
 function SignUpScreen ({ navigation }) {
   const [email, setEmail] = useState('')
@@ -27,16 +24,11 @@ function SignUpScreen ({ navigation }) {
   const handleSubmit = () => {
     if (!email || !password) return setLastError('All fields are required')
     setLastError(null)
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-        const user = userCredential.user
-        if (user) {
-          navigation.navigate('HomeTabs')
-        }
-      })
-      .catch(error => {
-        setLastError(error.message)
-      })
+    signUpWithEmailAndPassword(email, password).then(data => {
+      if (data.status === 'error') {
+        setLastError(data.error)
+      }
+    })
   }
 
   return (

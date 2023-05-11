@@ -15,6 +15,7 @@ import FormTextInput from '../components/FormTextInput'
 import LoginButton from "../components/LoginButton";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from '../firebase'
+import { loginWithEmailAndPassword } from '../firebase/auth'
 
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
@@ -26,16 +27,11 @@ const SignInScreen = ({ navigation }) => {
   const handleSubmit = () => {
     if (!email || !password) return setLastError('All fields are required')
     setLastError(null)
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        if (user) {
-          navigation.navigate('HomeTabs')
-        }
-      })
-      .catch((error) => {
-        setLastError(error.message)
-      });
+    loginWithEmailAndPassword(email, password).then(data => {
+      if (data.status === 'error') {
+        setLastError(data.error)
+      }
+    })
   }
 
   return (

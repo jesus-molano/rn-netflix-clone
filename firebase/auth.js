@@ -6,11 +6,10 @@ const loginWithEmailAndPassword = async (email, password) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    console.log('Inicio de sesión exitoso', user);
-    return user;
+    console.log('Inicio de sesión exitoso');
+    return {status: 'ok', user};
   } catch (error) {
-    console.error('Error al iniciar sesión', error);
-    return null;
+    return {status: 'error', error: error.code};
   }
 };
 
@@ -18,11 +17,9 @@ const signUpWithEmailAndPassword = async (email, password) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    console.log('Registro exitoso', user);
-    return user;
+    return {status: 'ok', user};
   } catch (error) {
-    console.error('Error al registrarse', error);
-    return null;
+    return {status: 'error', error: error.code};
   }
 };
 
